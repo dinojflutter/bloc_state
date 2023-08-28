@@ -21,13 +21,84 @@ class _ProductScreemState extends State<ProductScreem> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Prodel Product"),
+        title: const Text("Prodel Product"),
       ),
-      body: BlocBuilder<ProductModelBloc, ProductModelState>(
-          builder: (context, state) {
+      // body: BlocBuilder<ProductModelBloc, ProductModelState>(
+      //     builder: (context, state) {
+      //   if (State is Productloadingstate) {
+      //     return Center(
+      //       child: CircularProgressIndicator(),
+      //     );
+      //   } else if (state is Productloadedstate) {
+      //     return ListView.builder(
+      //         itemCount: state.productsModel.length,
+      //         itemBuilder: (context, index) => Padding(
+      //               padding: const EdgeInsets.all(5.0),
+      //               child: Card(
+      //                 elevation: 5,
+      //                 child: Container(
+      //                   color: Colors.white,
+      //                   height: 200,
+      //                   child: Row(
+      //                     children: [
+      //                       // Text(state.productsModel[index].category.toString()),
+      //                       Padding(
+      //                         padding:
+      //                             const EdgeInsets.symmetric(horizontal: 20),
+      //                         child: Image.network(
+      //                           state.productsModel[index].image.toString(),
+      //                           height: 150,
+      //                           width: 150,
+      //                         ),
+      //                       ),
+
+      //                       Text(
+      //                         state.productsModel[index].category.toString(),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ),
+      //               ),
+      //             ));
+      //   } else if (state is ProductErrorstate) {
+      //     return (Center(
+      //       child: Text(state.errorMessage),
+      //     ));
+      //   }
+      //   return const SizedBox();
+      // }),
+      // body: BlocListener<ProductModelBloc, ProductModelState>(
+      //   listener: (context, state) {
+      //     if (state is Productloadedstate) {
+      //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //           backgroundColor: Colors.red, content: Text("Data loaded")));
+      //     } else if (state is ProductErrorstate) {
+      //       ScaffoldMessenger.of(context)
+      //           .showSnackBar(SnackBar(content: Text("Not loaded")));
+      //     }
+      //   },
+      //   child: Center(
+      //     child: Text(
+      //       "Bloc Listener",
+      //       style: TextStyle(fontSize: 25),
+      //     ),
+      //   ),
+      // ),
+      body: BlocConsumer<ProductModelBloc, ProductModelState>(
+          listener: (context, state) {
+        if (state is Productloadedstate) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red, content: Text("Data loaded")));
+        } else if (state is ProductErrorstate) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text("Not loaded")));
+        }
+      }, builder: (context, state) {
         if (State is Productloadingstate) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Colors.red,
+            ),
           );
         } else if (state is Productloadedstate) {
           return ListView.builder(
@@ -39,9 +110,8 @@ class _ProductScreemState extends State<ProductScreem> {
                       child: Container(
                         color: Colors.white,
                         height: 200,
-                        child: Row(
+                        child: Column(
                           children: [
-                            // Text(state.productsModel[index].category.toString()),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
@@ -51,9 +121,8 @@ class _ProductScreemState extends State<ProductScreem> {
                                 width: 150,
                               ),
                             ),
-
                             Text(
-                              state.productsModel[index].category.toString(),
+                              state.productsModel[index].title.toString(),
                             ),
                           ],
                         ),

@@ -1,13 +1,25 @@
 import 'package:block_app1/Screens/Homescren.dart';
 import 'package:block_app1/bloc/product_model_bloc.dart';
+import 'package:block_app1/cubit/users_cubit.dart';
 import 'package:block_app1/debug/bloc_observer.dart';
 import 'package:block_app1/repo/Products_repo.dart';
+import 'package:block_app1/repo/User_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
-  runApp(const MyApp());
+  runApp(MultiRepositoryProvider(
+    providers: [
+      RepositoryProvider(
+        create: (context) => ProductRepo(),
+      ),
+      RepositoryProvider(
+        create: (context) => UsersRepo(),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,8 +27,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProductModelBloc(ProductRepo()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProductModelBloc(ProductRepo()),
+        ),
+        BlocProvider(
+          create: (context) => UsersCubit(UsersRepo()),
+        ),
+      ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',

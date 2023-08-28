@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 
 import '../Models/Product_Model.dart';
-import '../bloc/product_model_bloc.dart';
 
 class ProductRepo {
   Future<List<ProductModel>> getproduct() async {

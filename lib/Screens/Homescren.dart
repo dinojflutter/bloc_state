@@ -1,4 +1,5 @@
 import 'package:block_app1/Screens/Product_Screen.dart';
+import 'package:block_app1/Screens/Users_Screens.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -16,13 +17,29 @@ class _HomepageState extends State<Homepage> {
         centerTitle: true,
         title: Text("HomeScreen"),
       ),
-      body: Center(
-          child: TextButton(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: TextButton(
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ProductScreem()));
               },
-              child: Text("Buy Goods"))),
+              child: Text("Buy Goods"),
+            ),
+          ),
+          Center(
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UserScreen()));
+              },
+              child: Text("User Modsel"),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
