@@ -2,14 +2,14 @@ import 'package:block_app1/cubit/users_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UserScreen extends StatefulWidget {
-  const UserScreen({super.key});
+class User_Screen extends StatefulWidget {
+  const User_Screen({super.key});
 
   @override
-  State<UserScreen> createState() => _UserScreenState();
+  State<User_Screen> createState() => _User_ScreenState();
 }
 
-class _UserScreenState extends State<UserScreen> {
+class _User_ScreenState extends State<User_Screen> {
   @override
   void initState() {
     context.read<UsersCubit>().onloaduser();
@@ -26,13 +26,13 @@ class _UserScreenState extends State<UserScreen> {
         builder: (context, state) {
           if (state is UsersLoadingState) {
             return Center(child: CircularProgressIndicator());
-          } else if (State is UsersLoadedState) {
+          } else if (state is UsersLoadedState) {
             return ListView.builder(
               itemCount: 10,
               itemBuilder: (context, index) {
                 return ListTile(
                   leading: Text(
-                    "Cubit",
+                    state.usersModel[index].email.toString(),
                     style: TextStyle(color: Colors.red),
                   ),
                 );

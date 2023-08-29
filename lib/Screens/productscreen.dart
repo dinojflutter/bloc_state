@@ -94,7 +94,7 @@ class _ProductScreemState extends State<ProductScreem> {
               .showSnackBar(SnackBar(content: Text("Not loaded")));
         }
       }, builder: (context, state) {
-        if (State is Productloadingstate) {
+        if (state is Productloadingstate) {
           return Center(
             child: CircularProgressIndicator(
               color: Colors.red,
