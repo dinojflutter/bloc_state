@@ -36,7 +36,7 @@ class _HomepageState extends State<Homepage> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => User_Screen()));
               },
-              child: const Text("User Modsel"),
+              child: const Text("User Model"),
             ),
           ),
           Center(

@@ -7,7 +7,8 @@ class TodoViewModel {
 
   TodoViewModel(this.todoRepo);
 
-  final VelocityBloc<TodoModel?> todoModelBloc = VelocityBloc<TodoModel?>(null);
+  final VelocityBloc<List<TodoModel>?> todoModelBloc =
+      VelocityBloc<List<TodoModel>?>(null);
 
   getTodo() async {
     try {

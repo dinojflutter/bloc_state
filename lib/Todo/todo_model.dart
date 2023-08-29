@@ -4,66 +4,36 @@
 
 import 'dart:convert';
 
-TodoModel todoModelFromJson(String str) => TodoModel.fromJson(json.decode(str));
+List<TodoModel> todoModelFromJson(String str) =>
+    List<TodoModel>.from(json.decode(str).map((x) => TodoModel.fromJson(x)));
 
-String todoModelToJson(TodoModel data) => json.encode(data.toJson());
+String todoModelToJson(List<TodoModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class TodoModel {
-  List<Todo>? todos;
-  int? total;
-  int? skip;
-  int? limit;
+  int? userId;
+  int? id;
+  String? title;
+  bool? completed;
 
   TodoModel({
-    this.todos,
-    this.total,
-    this.skip,
-    this.limit,
+    this.userId,
+    this.id,
+    this.title,
+    this.completed,
   });
 
   factory TodoModel.fromJson(Map<String, dynamic> json) => TodoModel(
-        todos: json["todos"] == null
-            ? []
-            : List<Todo>.from(json["todos"]!.map((x) => Todo.fromJson(x))),
-        total: json["total"],
-        skip: json["skip"],
-        limit: json["limit"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "todos": todos == null
-            ? []
-            : List<dynamic>.from(todos!.map((x) => x.toJson())),
-        "total": total,
-        "skip": skip,
-        "limit": limit,
-      };
-}
-
-class Todo {
-  int? id;
-  String? todo;
-  bool? completed;
-  int? userId;
-
-  Todo({
-    this.id,
-    this.todo,
-    this.completed,
-    this.userId,
-  });
-
-  factory Todo.fromJson(Map<String, dynamic> json) => Todo(
-        id: json["id"],
-        todo: json["todo"],
-        completed: json["completed"],
         userId: json["userId"],
+        id: json["id"],
+        title: json["title"],
+        completed: json["completed"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "todo": todo,
-        "completed": completed,
         "userId": userId,
+        "id": id,
+        "title": title,
+        "completed": completed,
       };
 }

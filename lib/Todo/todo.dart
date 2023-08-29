@@ -29,7 +29,8 @@ class _TodoScreenState extends State<TodoScreen> {
         centerTitle: true,
         title: const Text("Todo List "),
       ),
-      body: BlocBuilder<VelocityBloc<TodoModel?>, VelocityState<TodoModel?>>(
+      body: BlocBuilder<VelocityBloc<List<TodoModel>?>,
+          VelocityState<List<TodoModel>?>>(
         bloc: todoViewModel.todoModelBloc,
         builder: (context, state) {
           if (state is VelocityInitialState) {
@@ -38,10 +39,16 @@ class _TodoScreenState extends State<TodoScreen> {
             );
           } else if (state is VelocityUpdateState) {
             return ListView.builder(
-              itemCount: 10,
+              itemCount: state.data!.toList().length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Text("Hello"),
+                var todoData = state.data!.toList()[index];
+                return Card(
+                  child: ListTile(
+                    title: Text(
+                      todoData.title.toString(),
+                    ),
+                    subtitle: Text(todoData.completed.toString()),
+                  ),
                 );
               },
             );
